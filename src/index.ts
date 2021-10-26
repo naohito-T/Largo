@@ -1,14 +1,14 @@
+import { gsap as G } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+/** scss */
 import './sass/style.scss';
 
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
 // プラグインはgsap.registerPluginで登録
-gsap.registerPlugin(ScrollTrigger);
+G.registerPlugin(ScrollTrigger);
 
 const button = document.querySelector('header');
 
-const tween = gsap.to(button, {
+const tween = G.to(button, {
   duration: 0.5,
   paused: true,
   ease: 'power2.out',
@@ -24,11 +24,11 @@ const tween = gsap.to(button, {
 const showContent = () => {
   // 以下のtween.play()とgsap.to()は同じことをしている
   tween.play();
-  gsap.to('header h1', {
+  G.to('header h1', {
     opacity: 1,
   });
   // 画像郡を連続的に表示するアニメーションの制御
-  gsap.to('.img-container img', {
+  G.to('.img-container img', {
     opacity: 1,
     delay: 1,
     duration: 1.5,
@@ -41,17 +41,16 @@ const showContent = () => {
     },
   });
   // スクロールイベントの制御
-  gsap
-    .timeline({
-      defaults: { ease: 'power2.out', duration: 1.5 },
-      scrollTrigger: {
-        markers: true, // マーカーを表示するか（開発用）
-        trigger: '.content', // この要素と交差するとイベントが発火
-        start: 'top 50%', // ウィンドウのどの位置を発火の基準点にするか
-        end: 'bottom 25%', // ウィンドウのどの位置をイベントの終了点にするか
-        toggleActions: 'play none none none', // スクロールイベントで発火するアニメーションの種類
-      },
-    })
+  G.timeline({
+    defaults: { ease: 'power2.out', duration: 1.5 },
+    scrollTrigger: {
+      markers: true, // マーカーを表示するか（開発用）
+      trigger: '.content', // この要素と交差するとイベントが発火
+      start: 'top 50%', // ウィンドウのどの位置を発火の基準点にするか
+      end: 'bottom 25%', // ウィンドウのどの位置をイベントの終了点にするか
+      toggleActions: 'play none none none', // スクロールイベントで発火するアニメーションの種類
+    },
+  })
     .to('.content-text h2', {
       opacity: 1,
       y: -10,
@@ -75,5 +74,5 @@ const showContent = () => {
 };
 
 if (button !== null) {
-  button.addEventListener('click', showContent);
+  button.addEventListener('click', showContent, { once: true });
 }
