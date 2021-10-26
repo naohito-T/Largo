@@ -1,20 +1,34 @@
 import './sass/style.scss';
-import { gsap as g } from 'gsap';
 
-const el = document.querySelector('.header');
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-const tween = g.to('.header', {
-  duration: 0.5, // アニメーションの時間
-  paused: true, // 勝手にアニメーションが始まらないように
-  ease: 'power2.out', // イージング
+// プラグインはgsap.registerPluginで登録
+gsap.registerPlugin(ScrollTrigger);
+
+const button = document.querySelector('header');
+
+const tween = gsap.to(button, {
+  duration: 0.5,
+  paused: true,
+  ease: 'power2.out',
+  width: '100%',
+  height: '100px',
+  lineHeight: '100px',
+  borderRadius: '0%',
+  cursor: 'default',
   top: 0,
+  backgroundColor: '#0FBD94',
 });
 
-const setup = () => {
-  console.log('click');
+const showContent = () => {
+  // 以下のtween.play()とgsap.to()は同じことをしている
   tween.play();
-
-  g.to('.img-container img', {
+  gsap.to('header h1', {
+    opacity: 1,
+  });
+  // 画像郡を連続的に表示するアニメーションの制御
+  gsap.to('.img-container img', {
     opacity: 1,
     delay: 1,
     duration: 1.5,
@@ -26,32 +40,40 @@ const setup = () => {
       amount: 0.8,
     },
   });
+  // スクロールイベントの制御
+  gsap
+    .timeline({
+      defaults: { ease: 'power2.out', duration: 1.5 },
+      scrollTrigger: {
+        markers: true, // マーカーを表示するか（開発用）
+        trigger: '.content', // この要素と交差するとイベントが発火
+        start: 'top 50%', // ウィンドウのどの位置を発火の基準点にするか
+        end: 'bottom 25%', // ウィンドウのどの位置をイベントの終了点にするか
+        toggleActions: 'play none none none', // スクロールイベントで発火するアニメーションの種類
+      },
+    })
+    .to('.content-text h2', {
+      opacity: 1,
+      y: -10,
+    })
+    .to(
+      '.content-text p',
+      {
+        opacity: 1,
+        y: -10,
+      },
+      '-=1'
+    ) // 直前のアニメーションに0.7秒かぶせる
+    .to(
+      '.content img',
+      {
+        opacity: 1,
+        x: -10,
+      },
+      '-=1'
+    ); // 直前のアニメーションに0.7秒かぶせる
 };
 
-if (el !== null) {
-  el.addEventListener('click', setup);
+if (button !== null) {
+  button.addEventListener('click', showContent);
 }
-
-const tl = g.timeline({
-  repeat: -1, // アニメーションの繰り返し回数。-1で無限回
-  repeatDelay: 0.3, // ループとループの間の時間
-  defaults: { duration: 0.5, ease: 'power4.out' }, // tweenのデフォルトの値
-});
-
-// アニメーションを実行
-tl.from('.box', {
-  scale: 0,
-})
-  .to('.box1', {
-    left: 50,
-  })
-  .to(
-    '.box2',
-    {
-      right: 50,
-    },
-    '<'
-  ) // "<"は「前のアニメーションと同時に再生する」オプション
-  .to('.box', {
-    scale: 0,
-  });
