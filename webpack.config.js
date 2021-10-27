@@ -6,10 +6,15 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: MODE,
-  entry: './src/index.ts',
+  // entry: './src/index.ts',
+  entry: {
+    index: './src/index.ts',
+    cube: './src/lib/cube.ts',
+  },
   output: {
     path: `${__dirname}/public`,
-    filename: 'main.js',
+    // filename: 'main.js',
+    filename: './[name].bundle.js',
   },
   module: {
     rules: [
@@ -49,7 +54,7 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
       // 抽出する CSS のファイル名
-      filename: 'style.css',
+      filename: './[name].css',
     }),
   ],
   resolve: {

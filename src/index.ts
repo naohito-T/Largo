@@ -1,5 +1,8 @@
 import { gsap as G } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+/** util */
+import { tweenFactory } from './utils';
+
 /** scss */
 import './sass/style.scss';
 
@@ -8,7 +11,8 @@ G.registerPlugin(ScrollTrigger);
 
 const button = document.querySelector('header');
 
-const tween = G.to(button, {
+// gsapはtweenという単位でアニメーションを作成する。
+const tween = tweenFactory(button, {
   duration: 0.5,
   paused: true,
   ease: 'power2.out',
@@ -23,7 +27,7 @@ const tween = G.to(button, {
 
 const showContent = () => {
   // 以下のtween.play()とgsap.to()は同じことをしている
-  tween.play();
+  tween?.play();
   G.to('header h1', {
     opacity: 1,
   });
@@ -44,7 +48,7 @@ const showContent = () => {
   G.timeline({
     defaults: { ease: 'power2.out', duration: 1.5 },
     scrollTrigger: {
-      markers: true, // マーカーを表示するか（開発用）
+      markers: true, // マーカーを表示するか
       trigger: '.content', // この要素と交差するとイベントが発火
       start: 'top 50%', // ウィンドウのどの位置を発火の基準点にするか
       end: 'bottom 25%', // ウィンドウのどの位置をイベントの終了点にするか
