@@ -8,3 +8,11 @@ export const tweenFactory = (
   if (el === null) return undefined;
   return G.to(el, { ...op });
 };
+
+export const tweenSpreedFactory = <T extends Element | null>(
+  el: T,
+  op: { [key: string]: string | number | boolean | {} }
+): gsap.core.Tween | undefined => {
+  if (el === null) return undefined;
+  return G.to(el, { ...op });
+};

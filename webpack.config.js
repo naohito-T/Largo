@@ -4,16 +4,21 @@ const isSourceMap = MODE === 'development';
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+/**
+ * @desc SPAではなく通常の画面遷移で、それぞれの画面ごとに異なるJSファイルを読み込むことになると複数のエントリーファイルが必要になる。
+ * @see http://webdesign-dackel.com/2015/09/10/webpack-multiple-output/
+ */
+
 module.exports = {
   mode: MODE,
-  // entry: './src/index.ts',
   entry: {
     index: './src/index.ts',
-    cube: './src/lib/cube.ts',
+    'cube/cube': './src/lib/cube.ts',
+    'hobby/hobby': './src/hobby.ts',
+    'cube-triagle/cubeTriagle': './src/cubeTriagle.ts',
   },
   output: {
     path: `${__dirname}/public`,
-    // filename: 'main.js',
     filename: './[name].bundle.js',
   },
   module: {

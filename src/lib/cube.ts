@@ -27,7 +27,7 @@ export class DemoCubesWorld extends BasicView {
     this.cameraLookAtTarget = new THREE.Vector3();
 
     const timeline = gsap.timeline();
-    timeline.repeat(-1);
+    timeline.repeat(-1); /** 無限 */
 
     // カメラの動きをTweenで作る
     timeline.set(this, { rot: 135 }, 0);

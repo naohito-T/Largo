@@ -1,3 +1,3 @@
-import { tweenFactory } from './tweenFactory';
+import { tweenFactory, tweenSpreedFactory } from './tweenFactory';
 
-export { tweenFactory };
+export { tweenFactory, tweenSpreedFactory };

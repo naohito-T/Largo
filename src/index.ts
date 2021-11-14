@@ -1,18 +1,22 @@
 import { gsap as G } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 /** util */
-import { tweenFactory } from './utils';
-
+import { tweenFactory, tweenSpreedFactory } from './utils';
 /** scss */
 import './sass/style.scss';
 
 // プラグインはgsap.registerPluginで登録
 G.registerPlugin(ScrollTrigger);
 
+/** class name */
+const HEADER_IN_H1 = 'header h1';
+const IMAGE_CONTENER = '.img-container img';
+
 const button = document.querySelector('header');
+const images = document.querySelector('.img-container');
 
 // gsapはtweenという単位でアニメーションを作成する。
-const tween = tweenFactory(button, {
+const headerTween = tweenFactory(button, {
   duration: 0.5,
   paused: true,
   ease: 'power2.out',
@@ -22,28 +26,49 @@ const tween = tweenFactory(button, {
   borderRadius: '0%',
   cursor: 'default',
   top: 0,
-  backgroundColor: '#0FBD94',
+  backgroundColor: '#000',
+});
+
+const constentWrapTweenImg = tweenSpreedFactory(images as HTMLElement, {
+  opacity: 1,
+  delay: 1,
+  duration: 1.5,
+  y: -10,
+  ease: 'power2.out',
+  // 複数要素を扱うプロパティ
+  stagger: {
+    from: 'start',
+    amount: 0.8,
+  },
 });
 
 const showContent = () => {
   // 以下のtween.play()とgsap.to()は同じことをしている
-  tween?.play();
-  G.to('header h1', {
+  headerTween?.play();
+
+  G.to(HEADER_IN_H1, {
     opacity: 1,
   });
   // 画像郡を連続的に表示するアニメーションの制御
-  G.to('.img-container img', {
-    opacity: 1,
-    delay: 1,
-    duration: 1.5,
-    y: -10,
-    ease: 'power2.out',
-    // 複数要素を扱うプロパティ
-    stagger: {
-      from: 'start',
-      amount: 0.8,
-    },
-  });
+  // G.to('.img-container img', {
+  //   opacity: 1,
+  //   delay: 1,
+  //   duration: 1.5,
+  //   y: -10,
+  //   ease: 'power2.out',
+  //   // 複数要素を扱うプロパティ
+  //   stagger: {
+  //     from: 'start',
+  //     amount: 0.8,
+  //   },
+  // });
+  if (constentWrapTweenImg !== undefined) {
+    constentWrapTweenImg.play();
+    console.log('done');
+  } else {
+    console.log('undefined');
+  }
+
   // スクロールイベントの制御
   G.timeline({
     defaults: { ease: 'power2.out', duration: 1.5 },
@@ -55,12 +80,12 @@ const showContent = () => {
       toggleActions: 'play none none none', // スクロールイベントで発火するアニメーションの種類
     },
   })
-    .to('.content-text h2', {
+    .to('.content-box h2', {
       opacity: 1,
       y: -10,
     })
     .to(
-      '.content-text p',
+      '.content-box p',
       {
         opacity: 1,
         y: -10,
