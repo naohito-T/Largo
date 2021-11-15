@@ -1,7 +1,7 @@
 import { gsap as G } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 /** util */
-import { tweenFactory, tweenSpreedFactory } from './utils';
+import { TweenFactory as TF, TweenSettings as TS } from './utils';
 /** scss */
 import './sass/style.scss';
 
@@ -13,42 +13,32 @@ const HEADER_IN_H1 = 'header h1';
 const IMAGE_CONTENER = '.img-container img';
 
 const button = document.querySelector('header');
-const images = document.querySelector('.img-container');
+const images = document.querySelectorAll('.img-container__item');
+// const images = document.getElementById('images');
 
 // gsapはtweenという単位でアニメーションを作成する。
-const headerTween = tweenFactory(button, {
-  duration: 0.5,
-  paused: true,
-  ease: 'power2.out',
-  width: '100%',
-  height: '100px',
-  lineHeight: '100px',
-  borderRadius: '0%',
-  cursor: 'default',
-  top: 0,
-  backgroundColor: '#000',
-});
+const headerTween = TF.tweenFactory(button, TS.HEADER_TWEEN);
 
-const constentWrapTweenImg = tweenSpreedFactory(images as HTMLElement, {
-  opacity: 1,
-  delay: 1,
-  duration: 1.5,
-  y: -10,
-  ease: 'power2.out',
-  // 複数要素を扱うプロパティ
-  stagger: {
-    from: 'start',
-    amount: 0.8,
-  },
-});
+const constentWrapTweenImg = TF.tweenSpreedFactory(images[0], TS.IMAGE_TWEEN);
+const constentWrapTweenImg2 = TF.tweenSpreedFactory(images[1], TS.IMAGE_TWEEN);
+const constentWrapTweenImg3 = TF.tweenSpreedFactory(images[2], TS.IMAGE_TWEEN);
 
 const showContent = () => {
   // 以下のtween.play()とgsap.to()は同じことをしている
   headerTween?.play();
-
+  constentWrapTweenImg?.play();
+  constentWrapTweenImg2?.play();
+  constentWrapTweenImg3?.play();
   G.to(HEADER_IN_H1, {
     opacity: 1,
   });
+
+  // if (constentWrapTweenImg !== undefined) {
+  //   constentWrapTweenImg.play();
+  //   console.log('done');
+  // } else {
+  //   console.log('undefined');
+  // }
   // 画像郡を連続的に表示するアニメーションの制御
   // G.to('.img-container img', {
   //   opacity: 1,
@@ -62,12 +52,6 @@ const showContent = () => {
   //     amount: 0.8,
   //   },
   // });
-  if (constentWrapTweenImg !== undefined) {
-    constentWrapTweenImg.play();
-    console.log('done');
-  } else {
-    console.log('undefined');
-  }
 
   // スクロールイベントの制御
   G.timeline({
