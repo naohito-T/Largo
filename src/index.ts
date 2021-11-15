@@ -19,16 +19,14 @@ const images = document.querySelectorAll('.img-container__item');
 // gsapはtweenという単位でアニメーションを作成する。
 const headerTween = TF.tweenFactory(button, TS.HEADER_TWEEN);
 
-const constentWrapTweenImg = TF.tweenSpreedFactory(images[0], TS.IMAGE_TWEEN);
-const constentWrapTweenImg2 = TF.tweenSpreedFactory(images[1], TS.IMAGE_TWEEN);
-const constentWrapTweenImg3 = TF.tweenSpreedFactory(images[2], TS.IMAGE_TWEEN);
-
 const showContent = () => {
   // 以下のtween.play()とgsap.to()は同じことをしている
   headerTween?.play();
-  constentWrapTweenImg?.play();
-  constentWrapTweenImg2?.play();
-  constentWrapTweenImg3?.play();
+  images.forEach((image) => {
+    const tween = TF.tweenSpreedFactory(image, TS.IMAGE_TWEEN);
+    tween?.play();
+  });
+
   G.to(HEADER_IN_H1, {
     opacity: 1,
   });
