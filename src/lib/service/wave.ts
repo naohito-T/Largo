@@ -25,7 +25,7 @@ G.set('.line3', { attr: { 'stroke-width': 9 }, opacity: 0.15 });
         duration: 2,
         attr: { stroke: 'hsl(360, 100%, 50%)', ease: 'power2.inOut' },
       },
-      0
+      0 // 0病後に実行する
     )
     .fromTo(
       el,
