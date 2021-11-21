@@ -1,4 +1,5 @@
 import { gsap as G } from 'gsap';
+import '../../sass/trackingCharcter.scss';
 
 /** factory */
 const select = (e: string) => document.querySelector(e);
@@ -11,7 +12,7 @@ const stepHeight = 100 / numSteps;
 const stepAngle = 75;
 // let dX = 0;
 // let dY = 0;
-let clones: Node[] = [];
+let clones: any[] = [];
 
 function cloneFace() {
   for (let i = 0; i < numSteps - 1; i++) {
@@ -26,15 +27,17 @@ function cloneFace() {
   clones.forEach((clone, i) => {
     clone.dataset.face = `face--${i + 2}`; // increment the new data attributes
     clone.querySelector('.txt').dataset.txt = `txt--${i + 2}`; // increment the new data attributes
-    parentFace.appendChild(clone);
-    parentFace = clone; // original is the new black
+    if (parentFace !== null) {
+      parentFace.appendChild(clone);
+      parentFace = clone; // original is the new black
+    }
   });
 }
 
 function clipYourFace() {
   for (let i = 0; i < numSteps; i++) {
     let yPos = stepHeight * i;
-    gsap.set(`[data-txt="txt--${i + 1}"]`, {
+    G.set(`[data-txt="txt--${i + 1}"]`, {
       clipPath: `polygon(0 ${yPos}%, 100% ${yPos}%, 100% ${
         yPos + stepHeight + 0.4
       }%, 0 ${yPos + stepHeight + 0.4}%)`,
@@ -45,10 +48,10 @@ function clipYourFace() {
 cloneFace();
 clipYourFace();
 
-gsap.set('.container', { autoAlpha: 1 });
-gsap.set('.scene', { transformOrigin: 'center center -400px' });
+G.set('.container', { autoAlpha: 1 });
+G.set('.scene', { transformOrigin: 'center center -400px' });
 
-let gtl = gsap.timeline({
+let gtl = G.timeline({
   delay: 1,
   repeat: -1,
   repeatDelay: 0,
@@ -57,8 +60,8 @@ let gtl = gsap.timeline({
   },
 });
 
-function stepText(tEase, angle) {
-  let tl = gsap.timeline();
+function stepText(tEase: any, angle: any) {
+  let tl = G.timeline();
 
   for (let step = 0; step < numSteps - 1; step++) {
     let dir = -1;
@@ -95,9 +98,7 @@ function stepText(tEase, angle) {
 
 gtl.add(stepText('elastic', 1)).add(stepText('elastic', 0));
 
-/**
- *
- */
+// calc = 計算
 const calcOffset = (xPos: number, yPos: number): number[] => {
   let winW = window.innerWidth;
   let winH = window.innerHeight;
