@@ -1,0 +1,116 @@
+@font-face {
+  font-family: 'Anybody';
+  src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/61488/ETCAnybodyPB.woff2')
+    format('woff2-variations');
+  font-display: block;
+  font-style: normal italic;
+  font-weight: 100 900;
+  font-stretch: 10% 400%;
+}
+
+:root {
+  --fontSize: 140px;
+}
+
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body,
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #000;
+  // background-image: radial-gradient(farthest-side at 45vw 0vh, rgba(255,255,255, 0.2) 0%, #101010 100%);
+  font-family: 'Anybody', Helvetica, sans;
+  color: white;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  perspective: 900px;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.scene {
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.word {
+  transform-style: preserve-3d;
+}
+
+.face {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d;
+  // border: 2px solid white;
+}
+
+.txt {
+  margin: 0;
+  transform-style: preserve-3d;
+  font-size: calc(3 * var(--fontSize));
+  font-weight: 900;
+  font-stretch: 10%;
+  font-style: normal;
+  text-transform: uppercase;
+  line-height: 0.73;
+  text-align: center;
+}
+
+/*  ==========================================================
+  Collection Linl
+  ========================================================== */
+
+.collection {
+  position: fixed;
+  z-index: 1000;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.collection__link {
+  position: relative;
+  margin-bottom: 16px;
+  color: white;
+  font-family: Helvetica, sans-serif;
+  text-decoration: none;
+  font-size: 16px;
+
+  span {
+    display: block;
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    height: 1px;
+    width: 10%;
+    background-color: white;
+    content: '';
+    transition: width 0.3s;
+  }
+
+  &:hover span {
+    width: 100%;
+  }
+}

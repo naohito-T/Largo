@@ -16,6 +16,8 @@ module.exports = {
     'cube/cube': './src/lib/cube.ts',
     'hobby/hobby': './src/hobby.ts',
     'cube-triagle/cubeTriagle': './src/cubeTriagle.ts',
+    'wave/wave': './src/lib/service/wave.ts',
+    'tracking/tracking': './src/lib/service/trackingCharacter.ts',
   },
   output: {
     path: `${__dirname}/public`,

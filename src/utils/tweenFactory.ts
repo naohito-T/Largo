@@ -16,3 +16,13 @@ export const tweenSpreedFactory = <T extends Element | null>(
   if (el === null) return undefined;
   return G.to(el, { ...op });
 };
+
+/**
+ * timeline
+ */
+
+export const tweenTimeFactory = (op: {
+  [key: string]: string | number | boolean | {};
+}): gsap.core.Timeline => {
+  return G.timeline({ ...op });
+};

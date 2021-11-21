@@ -38,4 +38,19 @@ const IMAGE_TWEEN: TweenElement = {
   },
 };
 
-export { HEADER_TWEEN, IMAGE_TWEEN };
+/**
+ * timeline
+ */
+
+const TIME_LINE: TweenElement = {
+  defaults: { ease: 'power2.out', duration: 1.5 },
+  scrollTrigger: {
+    markers: true, // マーカーを表示するか
+    trigger: '.content', // この要素と交差するとイベントが発火
+    start: 'top 50%', // ウィンドウのどの位置を発火の基準点にするか
+    end: 'bottom 25%', // ウィンドウのどの位置をイベントの終了点にするか
+    toggleActions: 'play none none none', // スクロールイベントで発火するアニメーションの種類
+  },
+};
+
+export { HEADER_TWEEN, IMAGE_TWEEN, TIME_LINE };
