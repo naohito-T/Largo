@@ -3,7 +3,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 /** util */
 import { TweenFactory as TF, TweenSettings as TS } from './utils';
 /** scss */
-import './sass/style.scss';
+import './assets/sass/style.scss';
 
 // プラグインはgsap.registerPluginで登録
 G.registerPlugin(ScrollTrigger);

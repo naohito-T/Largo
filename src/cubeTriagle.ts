@@ -1,5 +1,5 @@
 import { gsap as G } from 'gsap';
-import './sass/cubeTriagle.scss';
+import './assets/sass/cubeTriagle.scss';
 
 const select = (e: any) => document.querySelector(e);
 const selectAll = (e: any) => document.querySelectorAll(e);

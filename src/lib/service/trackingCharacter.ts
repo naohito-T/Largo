@@ -1,5 +1,5 @@
 import { gsap as G } from 'gsap';
-import '../../sass/trackingCharcter.scss';
+import '../../assets/sass/trackingCharcter.scss';
 
 /** factory */
 const select = (e: string) => document.querySelector(e);
