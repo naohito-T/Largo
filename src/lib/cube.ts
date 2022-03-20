@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { BasicView } from './base';
 import gsap, { Cubic, Bounce, Expo } from 'gsap';
 
-import '../sass/cube.scss';
+import '../assets/sass/cube.scss';
 
 window.addEventListener('DOMContentLoaded', () => new DemoCubesWorld());
 
